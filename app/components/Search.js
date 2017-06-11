@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
+import helpers from "../utils/helpers";
 
 class Search extends Component {
   constructor() {
@@ -17,7 +18,12 @@ class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.keyword.value);
+    helpers.search(e.target.keyword.value).then((searchResults) => {
+      this.props.handleSubmit(searchResults);
+    });
+    this.setState({
+      query: ""
+    });
   }
 
   render() {

@@ -1,32 +1,31 @@
-const axios = require("axios");
+import axios from "axios";
 
 // Helper Functions (in this case the only one is runQuery)
 const helpers = {
 
-  searchArticles: function (queryString) {
+  search: (queryString) => {
 
     console.log(queryString);
 
     // Figure out the geolocation
-    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + require("../../config/keys").nyt + queryString;
-
-    return axios.get(queryURL).then((response) => {
-      console.log(response);
-      return response.data.results[0].formatted;
+    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${require("../../config/keys").nyt}&q=${queryString}`;
+    console.log(queryUrl);
+    return axios.get(queryUrl).then((response) => {
+      return response.data.response.docs;
     });
 
-  }
+  },
 
-  saveArticle: function(article) {
+  save: (article) => {
 
     return axios.post("/api", article).then((err) => {
       if (err) {
         console.log(err);
       }
     });
-  }
+  },
 
-  getHistory: function() {
+  getHistory: () => {
 
     return axios.get("/api").then(function(data) {
       if (err) {

@@ -13,9 +13,9 @@ class Main extends React.Component {
     };
   }
 
-  handleSubmit(data) {
+  handleSubmit(results) {
     this.setState({
-      results: results.concat(data)
+      results: results
     });
   }
 
@@ -32,7 +32,7 @@ class Main extends React.Component {
         <div className="container">
 
           <div className="row">
-            <Search handleClick={this.handleClick} />
+            <Search handleSubmit={this.handleSubmit.bind(this)} />
           </div>
 
           <div className="row">
@@ -55,7 +55,7 @@ class Main extends React.Component {
                   </ul>
                 </div>
 
-                <Route path="/" component={Results} />
+                <Route exact strict path="/" render={() => <Results results={this.state.results} />} />
                 <Route path="/favorites" component={Saved} />
 
               </div>
