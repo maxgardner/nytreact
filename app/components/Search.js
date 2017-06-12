@@ -18,11 +18,21 @@ class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    helpers.search(e.target.keyword.value).then((searchResults) => {
+    let keyword = e.target.keyword.value;
+    let startYear = e.target.startYear.value.split("-").join("");
+    let endYear = e.target.endYear.value.split("-").join("");
+    let query = `&q=${keyword}`;
+
+    if (startYear) {
+      query += `&begin_date=${startYear}`
+    }
+
+    if (endYear) {
+      query += `&end_date=${endYear}`
+    }
+
+    helpers.search(query).then((searchResults) => {
       this.props.handleSubmit(searchResults);
-    });
-    this.setState({
-      query: ""
     });
   }
 

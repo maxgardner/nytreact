@@ -3,14 +3,14 @@ import axios from "axios";
 // Helper Functions (in this case the only one is runQuery)
 const helpers = {
 
-  search: (queryString) => {
-
-    console.log(queryString);
+  search: (query) => {
 
     // Figure out the geolocation
-    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${require("../../config/keys").nyt}&q=${queryString}`;
-    console.log(queryUrl);
+    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${require("../../config/keys").nyt}${query}`;
     return axios.get(queryUrl).then((response) => {
+      if (response.data.response.docs.length === 0) {
+        return;
+      }
       return response.data.response.docs;
     });
 

@@ -14,7 +14,7 @@ class Results extends Component {
     }
     return (
       this.props.results.map((result, i) => (
-        <div className="well">
+        <div key={result.id} className="well">
           <div className="row">
             <div className="col-sm-1 text-center">
               <h5><span className="badge badge-success">{i + 1}</span></h5>
@@ -26,7 +26,7 @@ class Results extends Component {
               <h5>{result.headline.kicker}</h5>
               <p className="italic">Published {result.pub_date.split("T")[0]}</p>
               <p>{result.snippet}</p>
-              <p><a href={result.web_url} target="_blank">Continue Reading</a></p>
+              <p><a href={result.web_url} target="_blank">Read More</a></p>
             </div>
           </div>
         </div>
